@@ -6,7 +6,6 @@ const items = [
   {id: 4, name: 'Mandariini'},
 ];
 
-
 // kaikkien itemien haku
 const getItems = (req, res) => {
   res.json(items);
@@ -16,12 +15,12 @@ const getItems = (req, res) => {
 const getItemById = (req, res) => {
   console.log('getItemById', req.params.id);
   const item = items.find((item) => item.id == req.params.id);
-  console.log('item found:', item)
+  console.log('item found:', item);
   // jos item löytyi, eli arvo ei ole undefined
   if (item) {
     res.json(item);
   } else {
-    res.status(404).json({message: "Item not found"});
+    res.status(404).json({message: 'Item not found'});
   }
 };
 
@@ -31,7 +30,7 @@ const addItem = (req, res) => {
   // jos pyyntö sisältää name-ominaisuuden, lisätään uusi asia items-taulukkoon
   if (req.body.name) {
     // generoidaan id-numero uudelle asialle (yhtä suurempi kuin viimeisin)
-    const latestId = items[items.length-1].id
+    const latestId = items[items.length - 1].id;
     // luodaan uusi asia olio ja lisätään se items-taulukkoon
     const newItem = {id: latestId + 1, name: req.body.name};
     items.push(newItem);
@@ -50,7 +49,7 @@ const editItem = (req, res) => {
     item.name = req.body.name;
     res.json({message: 'Item updated.'});
   } else {
-    res.status(404).json({message: "Item not found"});
+    res.status(404).json({message: 'Item not found'});
   }
 };
 
@@ -65,10 +64,8 @@ const deleteItem = (req, res) => {
     items.splice(index, 1);
     res.json({message: 'Item deleted.'});
   } else {
-    res.status(404).json({message: "Item not found"});
+    res.status(404).json({message: 'Item not found'});
   }
-}
-
-// TODO: lisää users.js, ks. materiaali week 2
+};
 
 export {getItems, getItemById, addItem, editItem, deleteItem};
