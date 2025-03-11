@@ -1,23 +1,31 @@
 import express from 'express';
-import {
-  addEntry,
-  deleteDiaryEntry,
-  editEntry,
-  getEntryById,
-  getEntries,
-} from '../controllers/entry-controller.js';
+import {getEntries, postEntry, EntriesByUserId} from '../controllers/entry-controller.js';
+import {authenticateToken} from '../middlewares/authentication.js';
+import {body} from 'express-validator';
+import {validationErrorHandler} from '../middlewares/error-handler.js';
 
 const entryRouter = express.Router();
 
-// all routes to /api/entries
-entryRouter.route('/')
-  .get(getEntries)        // Get all diary entries
-  .post(addEntry);        // Add a new diary entry
-
-// all routes to /api/entries/:id
-entryRouter.route('/:id')
-  .get(getEntryById)      // Get a specific diary entry by ID
-  .put(editEntry)         // Edit an existing diary entry
-  .delete(deleteDiaryEntry);  // Delete a specific diary entry
-
+// post to /api/entries
+entryRouter
+  .route('/')
+  .post(
+    authenticateToken,
+    body('entry_pvm').notEmpty().isDate(),
+    body('fiilis').trim().notEmpty().isLength({min: 3, max: 25}).escape(),
+    body('paino').isFloat({min: 2, max: 200}),
+    body('uni_tuntia').isInt({min: 0, max: 24}),
+    //body('notes').isLength({min: 0, max: 1500}).escape(),
+    body('notes').trim().escape().custom((value, {req}) => {
+      // customvalidointiesimerkki: jos sisältö sama kuin mood-kentässä
+      // -> ei mee läpi
+      // https://express-validator.github.io/docs/guides/customizing#implementing-a-custom-validator
+      console.log('custom validator', value);
+      return !(req.body.mood === value);
+    }),
+    validationErrorHandler,
+    postEntry,
+  )
+  .get(authenticateToken, getEntries);
+  entryRouter.get('/entries',authenticateToken , EntriesByUserId)
 export default entryRouter;

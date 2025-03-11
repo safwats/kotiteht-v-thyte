@@ -9,9 +9,7 @@ const pool = mysql.createPool({
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
-  authPlugins: {
-    mysql_native_password: mysql.authPlugins.mysql_native_password
-  }
+
 });
 
 const promisePool = pool.promise();

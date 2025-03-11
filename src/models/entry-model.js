@@ -7,7 +7,7 @@ import promisePool from '../utils/database.js';
 const selectAllEntries = async () => {
   try {
     const [rows] = await promisePool.query(
-      'SELECT entry_id, user_id, entry_date, mood, weight, sleep_hours, notes, created_at FROM DiaryEntries'
+      'SELECT entry_id, user_id, entry_Pvm, Fiilis, Paino, Uni_tuntia, Huomio, created_at FROM DiaryEntries'
     );
     console.log('selectAllEntries result', rows);
     return rows;
@@ -17,6 +17,23 @@ const selectAllEntries = async () => {
   }
 };
 
+
+const selectEntriesByUserId = async (userId) => {
+  try {
+    const [rows] = await promisePool.query(
+      'SELECT * FROM DiaryEntries WHERE user_id=?',
+      [userId],
+    );
+    console.log(rows);
+    return rows;
+  } catch (error) {
+    console.error(error);
+    throw new Error('database error');
+  }
+};
+
+
+
 /**
  * Fetch a diary entry by id
  * @param {number} entryId The id of the entry
@@ -25,7 +42,7 @@ const selectAllEntries = async () => {
 const selectEntryById = async (entryId) => {
   try {
     const [rows] = await promisePool.query(
-      'SELECT entry_id, user_id, entry_date, mood, weight, sleep_hours, notes, created_at FROM DiaryEntries WHERE entry_id = ?',
+      'SELECT entry_id, user_id, entry_Pvm, Fiilis, Paino, Uni_tuntia, Huomio, created_at FROM DiaryEntries WHERE entry_id = ?',
       [entryId]
     );
     console.log('selectEntryById result', rows);
@@ -44,8 +61,8 @@ const selectEntryById = async (entryId) => {
 const insertEntry = async (entry) => {
   try {
     const [result] = await promisePool.query(
-      'INSERT INTO DiaryEntries (user_id, entry_date, mood, weight, sleep_hours, notes) VALUES (?, ?, ?, ?, ?, ?)',
-      [entry.user_id, entry.entry_date, entry.mood, entry.weight, entry.sleep_hours, entry.notes]
+      'INSERT INTO DiaryEntries (user_id, entry_Pvm, Fiilis, Paino, Uni_tuntia, Huomio) VALUES (?, ?, ?, ?, ?, ?)',
+      [entry.user_id, entry.entry_Pvm, entry.Fiilis, entry.Paino, entry.Uni_tuntia, entry.Huomio]
     );
     console.log('insertEntry result', result);
     return result.insertId;
@@ -64,13 +81,13 @@ const insertEntry = async (entry) => {
 const updateEntry = async (entryId, updatedEntry) => {
   try {
     await promisePool.query(
-      'UPDATE DiaryEntries SET entry_date = ?, mood = ?, weight = ?, sleep_hours = ?, notes = ? WHERE entry_id = ?',
+      'UPDATE DiaryEntries SET entry_Pvm = ?, Fiilis = ?, Paino = ?, Uni_tuntia = ?, Huomio = ? WHERE entry_id = ?',
       [
-        updatedEntry.entry_date,
-        updatedEntry.mood,
-        updatedEntry.weight,
-        updatedEntry.sleep_hours,
-        updatedEntry.notes,
+        updatedEntry.entry_Pvm,
+        updatedEntry.Fiilis,
+        updatedEntry.Paino,
+        updatedEntry.Uni_tuntia,
+        updatedEntry.Huomio,
         entryId,
       ]
     );
@@ -99,4 +116,4 @@ const deleteEntry = async (entryId) => {
   }
 };
 
-export { selectAllEntries, selectEntryById, insertEntry, updateEntry, deleteEntry };
+export { selectAllEntries, selectEntryById, insertEntry, updateEntry, deleteEntry, selectEntriesByUserId};

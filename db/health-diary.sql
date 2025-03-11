@@ -16,11 +16,11 @@ CREATE TABLE Users (
 CREATE TABLE DiaryEntries (
     entry_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
-    entry_date DATE NOT NULL,
-    mood VARCHAR(50),
-    weight DECIMAL(5,2),
-    sleep_hours INT,
-    notes TEXT,
+    entry_Pvm DATE NOT NULL,
+    Fiilis VARCHAR(50),
+    Paino DECIMAL(5,2),
+    Uni_tuntia INT,
+    Huomio TEXT,
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );
@@ -36,16 +36,6 @@ CREATE TABLE Medications (
     FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );
 
-CREATE TABLE Exercises (
-    exercise_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
-    type VARCHAR(100) NOT NULL,
-    duration INT NOT NULL,
-    intensity VARCHAR(50),
-    date DATE,
-    FOREIGN KEY (user_id) REFERENCES Users(user_id)
-);
-
 -- Insert sample data
 
 INSERT INTO Users (username, password, email, created_at, user_level) VALUES
@@ -54,12 +44,12 @@ INSERT INTO Users (username, password, email, created_at, user_level) VALUES
 ('alice_jones', 'hashed_password', 'alice@example.com', '2024-01-04 08:30:00', 'regular'),
 ('bob_brown', 'hashed_password', 'bob@example.com', '2024-01-05 07:45:00', 'regular');
 
-INSERT INTO DiaryEntries (user_id, entry_date, mood, weight, sleep_hours, notes, created_at) VALUES
-(1, '2024-01-10', 'Happy', 70.5, 8, 'Had a great workout session', '2024-01-10 20:00:00'),
-(2, '2024-01-11', 'Satisfied', 65.0, 7, 'Met with friends, had a good time', '2024-01-11 21:00:00'),
-(3, '2024-01-12', 'Tired', 68.0, 6, 'Work was demanding', '2024-01-12 22:00:00'),
-(4, '2024-01-13', 'Energetic', 55.0, 9, 'Went for a morning run', '2024-01-13 18:00:00'),
-(4, '2024-01-14', 'Relaxed', 75.0, 8, 'Spent the day reading', '2024-01-14 19:00:00');
+INSERT INTO DiaryEntries (user_id, entry_Pvm, Fiilis, Paino, Uni_tuntia, Huomio, created_at) VALUES
+(1, '2024-01-10', 'Iloinen', 70.5, 8, 'Mahtava treeni oli', '2024-01-10 20:00:00'),
+(2, '2024-01-11', 'Chilli', 65.0, 7, 'Tapasin kaveri, oli hauskaa', '2024-01-11 21:00:00'),
+(3, '2024-01-12', 'Poikki', 68.0, 6, 'Iso urakka, energia pois ', '2024-01-12 22:00:00'),
+(4, '2024-01-13', 'Energinen', 55.0, 9, 'Aamulenkki tehty', '2024-01-13 18:00:00'),
+(4, '2024-01-14', 'Rento', 75.0, 8, 'Kirjat vei ajan mutta oli kiva, tuli hieno fiilis', '2024-01-14 19:00:00');
 
 INSERT INTO Medications (user_id, name, dosage, frequency, start_date, end_date) VALUES
 (1, 'Vitamin D', '1000 IU', 'Daily', '2024-01-01', '2024-06-01'),
@@ -67,16 +57,6 @@ INSERT INTO Medications (user_id, name, dosage, frequency, start_date, end_date)
 (2, 'Amoxicillin', '500 mg', 'Every 8 hours', '2024-01-10', '2024-01-20'),
 (4, 'Metformin', '500 mg', 'Twice a day', '2024-01-15', '2024-07-15'),
 (2, 'Lisinopril', '10 mg', 'Daily', '2024-01-20', '2024-07-20');
-
-INSERT INTO Exercises (user_id, type, duration, intensity, date) VALUES
-(1, 'Running', 30, 'High', '2024-01-10'),
-(3, 'Cycling', 45, 'Medium', '2024-01-11'),
-(2, 'Swimming', 55, 'Low', '2024-01-12'),
-(1, 'Swimming', 30, 'Medium', '2024-01-16'),
-(3, 'Swimming', 60, 'Low', '2024-01-18'),
-(3, 'Yoga', 50, 'Low', '2024-01-18'),
-(1, 'Weight Training', 40, 'High', '2024-01-19');
-
 
 --
 INSERT INTO Users (username, password, email) VALUES

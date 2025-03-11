@@ -22,11 +22,11 @@ CREATE TABLE Users (
 CREATE TABLE DiaryEntries (
     entry_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT,
-    entry_date DATE NOT NULL,
-    mood VARCHAR(50),
-    weight DECIMAL(5,2),
-    sleep_hours INT,
-    notes TEXT,
+    entry_Pvm DATE NOT NULL,
+    Fiilis VARCHAR(50),
+    Paino DECIMAL(5,2),
+    Uni_tuntia INT,
+    Huomio TEXT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );
@@ -48,11 +48,11 @@ INSERT INTO Users (username, password, email, user_level) VALUES
   ('mike_smith', 'temp-pw-3', 'mike@example.com', 'moderator');
 
 -- Example when FK constraint fails (if user_id 15 does not exist) -> changed to 3
-INSERT INTO DiaryEntries (user_id, entry_date, mood, weight, sleep_hours, notes, created_at) VALUES
+INSERT INTO DiaryEntries (user_id, entry_Pvm, Fiilis, Paino, Uni_tuntia Huomio, created_at) VALUES
   (3, '2024-01-10', 'Happy', 70.5, 8, 'Had a great day, felt energetic', '2024-01-10 20:00:00');
 
 -- Inserting multiple diary entries
-INSERT INTO DiaryEntries (user_id, entry_date, mood, weight, sleep_hours, notes, created_at) VALUES
+INSERT INTO DiaryEntries (user_id, entry_Pvm, Fiilis, Paino, Uni_tuntia, Huomio, created_at) VALUES
   (1, '2024-01-10', 'Happy', 70.5, 8, 'Had a great day, felt energetic', '2024-01-10 20:00:00'),
   (1, '2024-01-11', 'Tired', 70.2, 6, 'Long day at work, need rest', '2024-01-11 20:00:00'),
   (2, '2024-01-10', 'Stressed', 65.0, 7, 'Busy day, a bit stressed out', '2024-01-10 21:00:00');
