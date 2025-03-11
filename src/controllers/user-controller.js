@@ -1,5 +1,5 @@
 import bcrypt from 'bcryptjs';
-import { validationResult } from 'express-validator';
+// import { validationResult } from 'express-validator';
 import { insertUser, selectAllUsers, selectUserById } from '../models/user-model.js';
 import { customError } from '../middlewares/error-handler.js';
 

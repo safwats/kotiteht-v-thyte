@@ -25,17 +25,6 @@ CREATE TABLE DiaryEntries (
     FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );
 
-CREATE TABLE Medications (
-    medication_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
-    name VARCHAR(100) NOT NULL,
-    dosage VARCHAR(50),
-    frequency VARCHAR(50),
-    start_date DATE,
-    end_date DATE,
-    FOREIGN KEY (user_id) REFERENCES Users(user_id)
-);
-
 -- Insert sample data
 
 INSERT INTO Users (username, password, email, created_at, user_level) VALUES
@@ -51,12 +40,6 @@ INSERT INTO DiaryEntries (user_id, entry_Pvm, Fiilis, Paino, Uni_tuntia, Huomio,
 (4, '2024-01-13', 'Energinen', 55.0, 9, 'Aamulenkki tehty', '2024-01-13 18:00:00'),
 (4, '2024-01-14', 'Rento', 75.0, 8, 'Kirjat vei ajan mutta oli kiva, tuli hieno fiilis', '2024-01-14 19:00:00');
 
-INSERT INTO Medications (user_id, name, dosage, frequency, start_date, end_date) VALUES
-(1, 'Vitamin D', '1000 IU', 'Daily', '2024-01-01', '2024-06-01'),
-(2, 'Ibuprofen', '200 mg', 'As needed', '2024-01-05', '2024-01-20'),
-(2, 'Amoxicillin', '500 mg', 'Every 8 hours', '2024-01-10', '2024-01-20'),
-(4, 'Metformin', '500 mg', 'Twice a day', '2024-01-15', '2024-07-15'),
-(2, 'Lisinopril', '10 mg', 'Daily', '2024-01-20', '2024-07-20');
 
 --
 INSERT INTO Users (username, password, email) VALUES
